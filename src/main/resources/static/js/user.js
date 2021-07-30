@@ -3,6 +3,9 @@ let index = {
 		$("#btn-save").on("click", () => { //function(){}, ()=> 을 대신 사용하는 이유는 this를 바인딩하기 위해서이다.
 			this.save();
 		});
+		$("#btn-login").on("click", () => { //function(){}, ()=> 을 대신 사용하는 이유는 this를 바인딩하기 위해서이다.
+			this.login();
+		});
 	},
 
 	save: function() {
@@ -33,6 +36,29 @@ let index = {
 			console.log(resp);
 			location.href = "/blog"
 		}).fail(function(error){ //실패할시 실행
+			alert(JSON.stringify(error));
+		});
+		
+	},
+	
+		login: function() {
+		//alert('user의 save함수 호출됨');
+		let data = {
+			username: $("#username").val(),
+			password: $("#password").val()
+		};
+		
+
+		$.ajax({
+			type: "POST",
+			url: "/blog/api/user/login",
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json" 
+		}).done(function(resp){
+			alert("로그인이 완료 되었습니다.");
+			location.href = "/blog"
+		}).fail(function(error){ 
 			alert(JSON.stringify(error));
 		});
 		
