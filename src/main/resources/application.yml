@@ -1,7 +1,7 @@
 server:
   port: 9090
   servlet:
-    context-path: /blog #defeault 값은 /이다.
+    context-path: / #defeault 값은 /이다.
     encoding:
       charset: UTF-8
       enabled: true
