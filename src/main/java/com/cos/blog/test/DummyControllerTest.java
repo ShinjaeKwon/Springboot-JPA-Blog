@@ -81,15 +81,15 @@ public class DummyControllerTest { //html파일이 아니라 data를 리턴해�
 	
 	//한 페이지당 2건에 데이터를 리턴받는다.
 	@GetMapping("dummy/user")
-	public List<User> pageList(@PageableDefault(size=2, sort="id",direction = Direction.DESC)Pageable pageable){
-		Page<User> PagingUser =userRepository.findAll(pageable);
+	public Page<User> pageList(@PageableDefault(size=2, sort="id",direction = Direction.DESC)Pageable pageable){
+		Page<User> pagingUser =userRepository.findAll(pageable);
 		
-		if(PagingUser.isFirst()) {//첫번째 데이터인가? , isLast() : 마지막 데이터인가?
+		if(pagingUser.isFirst()) {//첫번째 데이터인가? , isLast() : 마지막 데이터인가?
 			
 		}
 		
-		List<User> users = PagingUser.getContent();//getcontent() : Content 타입만 받는다.
-		return users;
+		List<User> users = pagingUser.getContent();//getcontent() : Content 타입만 받는다.
+		return pagingUser;
 	}
 	
 	
