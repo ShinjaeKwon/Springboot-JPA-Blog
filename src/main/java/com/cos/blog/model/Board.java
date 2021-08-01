@@ -14,7 +14,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.AllArgsConstructor;
@@ -40,7 +39,6 @@ public class Board {
 	@Lob // 대용량 데이터 
 	private String content;  //섬머 노트 라이브러리 <html> 태그가 섞여서 디자인이 된다.
 	
-	@ColumnDefault("0")
 	private int count; //조회수
 	
 	@ManyToOne(fetch = FetchType.EAGER) // Board : many , user : one, 한명의 유저는 여러개의 게시글 작성이 가능하다. (연관관계 설정)
@@ -57,4 +55,4 @@ public class Board {
 // @OneToMany의 default fetch값 : fetch = FetchType.LAZY,  필요할때 땡겨올 경우(댓글 펼치기) LAZY 전략 사용
 // @ManyToOne의 default fetch값 : fetch = FetchType.EAGER, Board 테이블을 select하면 user정보가 한개니까 가져오겠다. , 테이블이 select되면 무조건 데이터를 들고와라
 // 만약 댓글 펼치기 기능없이 바로 게시글에 댓글이 나타날 경우 같이 땡겨와야하기 때문에 EAGER 전략을 사용한다.
-
+// header.jsp 에서 ${board.title}을 작성하면 getTitle을 여기서 호출하는 것
