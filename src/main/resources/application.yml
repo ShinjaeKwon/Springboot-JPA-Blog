@@ -26,7 +26,7 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl #Entity(테이블)을 만들때 변수명 그대로 필드에 넣어주는 것이다.
       use-new-id-generator-mappings: false # false : jpa가 사용하는 기본 넘버링 전략을 따라가지 않는다. 
-    show-sql: true #true일시 콘솔창에 쿼리를 보여준다.
+    #show-sql: true #true일시 콘솔창에 쿼리를 보여준다.
     properties:
       hibernate.format_sql: true #true일시 콘솔창에 쿼리를 보여주는 것이 자동으로 정렬되서 나옴(기본값은 한줄로 나온다.)
 
