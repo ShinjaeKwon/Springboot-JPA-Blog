@@ -21,6 +21,8 @@ public class UserService {
 	@Autowired //DI가 되서 주입된다.
 	private BCryptPasswordEncoder encoder;
 	
+	
+	
 	@Transactional //하나의 트랜잭션으로 묶어준다. 하나라도 실패하면 롤백을 해야한다.(따로 짜야됨)
 	public void 회원가입(User user) {
 		String rawPassword = user.getPassword(); //원문
@@ -41,7 +43,7 @@ public class UserService {
 		String rawPassword = user.getPassword();
 		String encPassword = encoder.encode(rawPassword);
 		persistance.setPassword(encPassword);
-		persistance.setEmail(user.getEmail());
+		persistance.setEmail(user.getEmail());	
 		//회원수정 함수 종료시 = 서비스 종료시 = 트랜잭션이 종료 = commit이 자동으로 된다.
 		//영속화된 persistance 객체의 변화가 감지되면 더티체킹이 되어 update문을 날려준다.
 		
@@ -52,8 +54,6 @@ public class UserService {
 //서비스가 필요한 이유
 //1. 트랜잭션 관리
 //2. 서비스 의미 때문
-
-
 
 
 //@Transactional(readOnly = true) // Select 할 때 트랜잭션이 시작 , 서비스 종료시 트랜잭션 종료 (정합성 유지) 
