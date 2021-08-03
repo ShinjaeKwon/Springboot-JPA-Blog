@@ -3,6 +3,7 @@ package com.cos.blog.controller.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,8 +16,6 @@ public class UserApiController {
 
 	@Autowired
 	private UserService userService;
-	
-	
 
 	@PostMapping("/auth/joinProc")
 	public ResponseDto<Integer> save(@RequestBody User user) { // username, password, email
@@ -25,10 +24,19 @@ public class UserApiController {
 		userService.회원가입(user);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 자바오브젝트를 JSON으로 변환해서 리턴(Jackson)
 	}
+	
+	@PutMapping("/user")
+	public ResponseDto<Integer> update(@RequestBody User user) { 
+		userService.회원수정(user);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
+	}
 
 	
 
 }
+//@RequestBody : JSON으로 데이터를 받는다.
+//만약 위의 어노테이션을 적지 않으면 key=value , x-www-form-urlencoded로 데이터를 받는다.
+
 
 
 /*	//전통적인 로그인 방식
