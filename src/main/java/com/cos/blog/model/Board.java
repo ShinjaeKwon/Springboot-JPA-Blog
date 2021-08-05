@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -46,7 +48,9 @@ public class Board {
 	private User user; //DB는 오브젝트를 저장할 수 없다. FK, 자바는 오브젝트를 저장할 수 있다. JPA (ORM)을 사용하면 오브젝트를 저장할 수 있다.
 	
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // 하나의 게시글에는 여러개의 답변을 달 수 있다 , mappedBy : 연관관계의 주인이 아니다.(난 FK가 아니다) DB에 컬럼을 만들지 말라.
-	private List<Reply> reply;
+	@JsonIgnoreProperties({"board"}) //Reply의 Board 호출 안함 (무한 참조 방지), 다이렉트로 접근하면 데이터를 주지만, 참조로는 데이터를 주지 않는다.
+	private List<Reply> replys;
+	
 	
 	@CreationTimestamp //자동 현재 시간 삽입
 	private Timestamp createDate;
