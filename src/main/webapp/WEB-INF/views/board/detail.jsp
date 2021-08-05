@@ -25,13 +25,16 @@
 	<hr />
 
 	<div class="card">
-		<div class="card-body">
-			댓글입력
-			<textarea class="form-control" rows="1"></textarea>
-		</div>
-		<div class="card-footer">
-			<button class="btn btn-primary">등록</button>
-		</div>
+		<form >
+			<input type="hidden" id="boardId" value="${board.id}">
+			<div class="card-body">
+				댓글입력
+				<textarea id ="reply-content" class="form-control" rows="1"></textarea>
+			</div>
+			<div class="card-footer">
+				<button type="button" id="btn-reply-save" class="btn btn-primary">등록</button>
+			</div>
+		</form>
 	</div>
 	<br />
 	<div class="card">
