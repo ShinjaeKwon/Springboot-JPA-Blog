@@ -26,6 +26,7 @@
 
 	<div class="card">
 		<form >
+			<input type="hidden" id="userId" value="${principal.user.id}"> 
 			<input type="hidden" id="boardId" value="${board.id}">
 			<div class="card-body">
 				댓글입력
