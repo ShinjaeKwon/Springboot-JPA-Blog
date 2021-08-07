@@ -3,6 +3,7 @@ package com.cos.blog.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,11 +49,11 @@ public class Board {
 	@JoinColumn(name="userId") // 데이터베이스에 만들어질 때 컬럼이름은 설정한 값으로 만들어진다. 자동으로 FK키를 만들어준다.
 	private User user; //DB는 오브젝트를 저장할 수 없다. FK, 자바는 오브젝트를 저장할 수 있다. JPA (ORM)을 사용하면 오브젝트를 저장할 수 있다.
 	
-	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // 하나의 게시글에는 여러개의 답변을 달 수 있다 , mappedBy : 연관관계의 주인이 아니다.(난 FK가 아니다) DB에 컬럼을 만들지 말라.
+	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE) // 하나의 게시글에는 여러개의 답변을 달 수 있다 , mappedBy : 연관관계의 주인이 아니다.(난 FK가 아니다) DB에 컬럼을 만들지 말라.
 	@JsonIgnoreProperties({"board"}) //Reply의 Board 호출 안함 (무한 참조 방지), 다이렉트로 접근하면 데이터를 주지만, 참조로는 데이터를 주지 않는다.
 	@OrderBy("id desc") //정렬 (내림차순)
 	private List<Reply> replys;
-	
+	//cascade = CascadeType.REMOVE , Board의 글을 지울 때 댓글이 있어도 지운다.
 	
 	@CreationTimestamp //자동 현재 시간 삽입
 	private Timestamp createDate;
