@@ -11,19 +11,30 @@ import com.cos.blog.model.Board;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
 import com.cos.blog.repository.ReplyRepository;
-import com.cos.blog.repository.UserRepository;
 
 @Service
 public class BoardService {
 	
 	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
 	private BoardRepository boardRepository;
 	
 	@Autowired
 	private ReplyRepository replyRepository;
+	
+//	@Autowired의 의미 1
+//	private BoardRepository boardRepository;
+//	private ReplyRepository replyRepository;
+//	
+//	public BoardService(BoardRepository bRepo, ReplyRepository rRepo) {
+//		this.boardRepository = bRepo;
+//		this.replyRepository = rRepo;
+//	}
+	
+//	@Autowired의 의미 2
+//	Service 클래스에 @RequiredArgsConstructor를 붙여준다. (final도 알아서 생성자로 초기화시켜줌)
+//	private final BoardRepository boardRepository;
+//	private final ReplyRepository replyRepository;
+
 
 	@Transactional
 	public void 글쓰기(Board board, User user) { // title, content
