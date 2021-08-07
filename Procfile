@@ -1,0 +1,1 @@
+web: java -Dspring.server.port=9090 -Dspring.profiles.active=production $JAVA_OPTS -jar sjkblog-0.0.1-SNAPSHOT.war
