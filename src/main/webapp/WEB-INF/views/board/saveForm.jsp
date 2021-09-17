@@ -14,6 +14,7 @@
 	</form>
 	<button id="btn-save" class="btn btn-primary">글쓰기완료</button>
 </div>
+<br>
 
 <script>
 	$('.summernote').summernote({
