@@ -5,10 +5,17 @@
 <div class="container">
 
 	<c:forEach var="board" items="${boards.content}">
-		<div class="card m-2">
+		<div class="card m-2"> 
 			<div class="card-body">
 				<h4 class="card-title">${board.title}</h4>
-				<a href="/board/${board.id}" class="btn btn-primary">상세보기</a>
+				<c:choose>
+					<c:when test="${board.user.role == 'USER'}">
+						<a href="/board/${board.id}" class="btn btn-primary">상세보기</a>
+					</c:when>
+					<c:otherwise>
+						<a href="/board/${board.id}" class="btn btn-warning">상세보기</a>
+					</c:otherwise>
+				</c:choose>	
 			</div>
 		</div>
 	</c:forEach>

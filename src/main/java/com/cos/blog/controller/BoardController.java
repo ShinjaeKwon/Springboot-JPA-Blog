@@ -41,6 +41,11 @@ public class BoardController {
 	public String saveForm() {
 		return "board/saveForm";
 	}
+	
+	@GetMapping("/board/sellBoard")
+	public String sellBoard() {
+		return "board/sellBoard";
+	}
 }
 
 //일반 Controller일때 리턴할때 viewResolver가 작동
