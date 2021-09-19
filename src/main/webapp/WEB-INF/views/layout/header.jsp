@@ -39,11 +39,15 @@
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link" href="/board/saveForm">글쓰기</a></li>
 						<li class="nav-item"><a class="nav-link" href="/user/updateForm">회원정보</a></li>
+						<li class="nav-item"><a class="nav-link" href="/release">발매정보</a></li>
 						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
+						<c:if test="${principal.user.role == 'ADMIN'}">
+							<li class="nav-item"><a class="nav-link" href="/release/saveForm">발매정보 글쓰기</a></li>					
+						</c:if>
+	
 					</ul>
 				</c:otherwise>
 			</c:choose>
-
 		</div>
 	</nav>
 	<br />
