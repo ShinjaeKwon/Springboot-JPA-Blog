@@ -3,15 +3,7 @@
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
-	<script>	
-	$(document).ready(function(){ 
-		$("#btn-login").click(function(){
-				if($("#username").val().length==0){ alert("UserName을 입력하세요."); $("#username").focus(); return false; }
-				if($("#password").val().length==0){ alert("Password를 입력하세요."); $("#password").focus(); return false; }
-			});		
-	});
-	</script>
-
+	
 	<form action="/auth/loginProc" method="POST">
 		<div class="form-group">
 			<label for="username">Username</label> <input type="text" name="username" class="form-control" placeholder="Enter username" id="username">

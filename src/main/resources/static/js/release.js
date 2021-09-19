@@ -13,6 +13,16 @@ let index = {
 	},
 
 	save: function() {
+		if($("#title").val() == ""){
+			alert("제목을 입력해주세요.");
+			$("#title").focus();
+			return false;
+		}
+		if($("#content").val() == ""){
+			alert("내용을 입력해주세요.");
+			$("#content").focus();
+			return false;
+		}
 		let data = {
 			title: $("#title").val(),
 			content: $("#content").val()
@@ -47,6 +57,16 @@ let index = {
 		});
 	},
 	update: function() {
+		if($("#title").val() == ""){
+			alert("제목을 입력해주세요.");
+			$("#title").focus();
+			return false;
+		}
+		if($("#content").val() == ""){
+			alert("내용을 입력해주세요.");
+			$("#content").focus();
+			return false;
+		}
 		let id= $("#id").val();
 			
 		let data = {

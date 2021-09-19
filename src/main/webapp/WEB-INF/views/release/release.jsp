@@ -33,9 +33,6 @@
 		<li class="page-item"><a class="page-link" href="?page=${release.number+1}">Next</a></li>
 		</c:otherwise>
 	</c:choose>
-	<c:if test="${principal.user.role == 'ADMIN'}">
-		<a href="/release/saveForm">발매정보 글쓰기</a>
-	</c:if>
 	
 	
 </ul>

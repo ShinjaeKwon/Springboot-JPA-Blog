@@ -10,13 +10,29 @@ let index = {
 	},
 
 	save: function() {
-		//alert('user의 save함수 호출됨');
+		if($("#username").val() == ""){
+			alert("Username을 입력해주세요.");
+			$("#username").focus();
+			return false;
+		}
+		if($("#password").val() == ""){
+			alert("Password을 입력해주세요.");
+			$("#password").focus();
+			return false;
+		}
+		if($("#Email").val() == ""){
+			alert("Email을 입력해주세요.");
+			$("#email").focus();
+			return false;
+		}
+		
 		let data = {
 			username: $("#username").val(),
 			password: $("#password").val(),	
 			email: $("#email").val()
 		};
-	
+		
+		
 		//console.log(data);
 		
 		// ajax통신을 이용해서 3개의 데이터를 json으로 변경하여 insert 요청
@@ -45,6 +61,17 @@ let index = {
 		
 	},
 	update: function() {
+		if($("#password").val() == ""){
+			alert("Password을 입력해주세요.");
+			$("#password").focus();
+			return false;
+		}
+		if($("#Email").val() == ""){
+			alert("Email을 입력해주세요.");
+			$("#email").focus();
+			return false;
+		}
+		
 		let data = {
 			id: $("#id").val(),
 			username: $("#username").val(),
@@ -71,32 +98,3 @@ let index = {
 
 index.init();
 
-
-/*	$("#btn-login").on("click", () => { //function(){}, ()=> 을 대신 사용하는 이유는 this를 바인딩하기 위해서이다.
-			this.login();
-		});*/
-		
-		
-/*	login: function() {
-		//alert('user의 save함수 호출됨');
-		let data = {
-			username: $("#username").val(),
-			password: $("#password").val()
-		};
-		
-
-		$.ajax({
-			type: "POST",
-			url: "/api/user/login",
-			data: JSON.stringify(data),
-			contentType: "application/json; charset=UTF-8",
-			dataType: "json" 
-		}).done(function(resp){
-			alert("로그인이 완료 되었습니다.");
-			location.href = "/"
-		}).fail(function(error){ 
-			alert(JSON.stringify(error));
-		});
-		
-	}	*/	
-		

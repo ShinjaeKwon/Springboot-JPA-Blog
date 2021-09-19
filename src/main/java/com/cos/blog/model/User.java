@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -32,12 +34,16 @@ public class User {
 	private int id; // 시퀀스, auto_increment
 	
 	@Column(nullable=false, length = 100, unique = true) // @Column(nullable=false) : 널을 허락하지 않는다, legnth = 길이 설정 
+	@NotBlank(message="Username은 필수 입력값 입니다.")
 	private String username; //아이디
 	
 	@Column(nullable=false, length = 100) // password 길이를 100으로 잡는 이유 : 해쉬(비밀번호 암호와)를 위해서
+	@NotBlank(message="Password는 필수 입력값 입니다.")
 	private String password; 
 	
 	@Column(nullable=false, length = 50)
+	@NotBlank(message="Email은 필수 입력 값입니다.")
+	@Email(message="이메일 형식에 맞지 않습니다.")
 	private String email; 
 	
 	@Enumerated(EnumType.STRING)  //ENUM 타입이 String이라고 알려준다.
