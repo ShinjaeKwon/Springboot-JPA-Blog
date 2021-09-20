@@ -49,32 +49,4 @@ public class UserApiController {
 	
 
 }
-//@RequestBody : JSON으로 데이터를 받는다.
-//만약 위의 어노테이션을 적지 않으면 key=value , x-www-form-urlencoded로 데이터를 받는다.
 
-//강제로 세션값을 바꾸는 부분이다. --실패 (강
-//@PutMapping("/user")
-//public ResponseDto<Integer> update(@RequestBody User user, 
-//		@AuthenticationPrincipal PrincipalDetail principal, 
-//		HttpSession session) { 
-//	userService.회원수정(user);
-
-//	Authentication authentication =
-//			new UsernamePasswordAuthenticationToken(principal, null, principal.getAuthorities());
-//	SecurityContext securityContext = SecurityContextHolder.getContext();
-//	securityContext.setAuthentication(authentication);
-//	session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
-//	return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
-//}
-
-/*	//전통적인 로그인 방식
-@PostMapping("/api/user/login")
-public ResponseDto<Integer> login(@RequestBody User user, HttpSession session) {
-	System.out.println("UserApiController : login 호출됨");
-	User principal = userService.로그인(user); // principal : 접근 주체
-
-	if (principal != null) {
-		session.setAttribute("principal", principal); // 세션 생성 HttpSession session
-	}
-	return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
-}*/
