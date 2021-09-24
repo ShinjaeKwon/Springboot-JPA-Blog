@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.cos.blog.config.auth.PrincipalDetailService;
 
@@ -22,10 +21,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private PrincipalDetailService principalDetailService;
-	
-    private AuthenticationFailureHandler customFailureHandler;
-
-	
 	
 	@Bean //빈등록을하면 어디서든 사용이 가능하다.
 	@Override
@@ -59,8 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.formLogin()
 				.loginPage("/auth/loginForm")
 				.loginProcessingUrl("/auth/loginProc")//스프링 시큐리티가 해당 주소로 요청오는 로그인을 가로채서 대신 로그인을 해준다.
-				.defaultSuccessUrl("/")
-				.failureHandler(customFailureHandler); 
+				.failureUrl("/auth/loginForm?error")
+				.usernameParameter("username")
+				.passwordParameter("password")
+				.permitAll();
 	}
 }
 

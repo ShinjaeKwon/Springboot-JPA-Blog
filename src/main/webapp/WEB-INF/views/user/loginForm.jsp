@@ -3,10 +3,15 @@
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
-	
+	<c:url value="spring_security_check" var="loginUrl"/>
 	<form action="/auth/loginProc" method="POST">
+		<c:if test="${param.error != null }">
+			<script type="text/javascript">
+				alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+			</script>
+		</c:if>
 		<div class="form-group">
-			<label for="username">Username</label> <input type="text" name="username" class="form-control" placeholder="Enter username" id="username">
+			<label for="username">Username</label> <input type="text" value="${username}"  name="username" class="form-control" placeholder="Enter username" id="username">
 		</div>
 
 		<div class="form-group">
