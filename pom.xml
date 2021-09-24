@@ -12,6 +12,7 @@
 	<groupId>com.cos</groupId>
 	<artifactId>blog</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>blog</name>
 	<description>My First Project</description>
 	<properties>
