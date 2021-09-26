@@ -18,10 +18,10 @@
 						<a href="/board/${board.id}" class="btn btn-warning">상세보기</a>
 					</c:otherwise>
 				</c:choose>	
-				
 			</div>
 		</div>
 	</c:forEach>
+
 </div>
 <ul class="pagination justify-content-center">
 	<c:choose>

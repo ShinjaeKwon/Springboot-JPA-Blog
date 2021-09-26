@@ -15,9 +15,9 @@ spring:
       
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul
-    username: cos
-    password: cos1234
+    url: jdbc:mysql://b540342f410e02:aa5453df@us-cdbr-east-04.cleardb.com/heroku_a491c27c4ef8256?reconnect=true
+    username: b540342f410e02
+    password: aa5453df
     
   jpa:
     open-in-view: true
