@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			//.csrf().disable() //csrf 토큰 비활성화 (테스트시 걸어두는 게 좋다)
+			.csrf().disable() //csrf 토큰 비활성화 (테스트시 걸어두는 게 좋다)
 			.authorizeRequests()
 				.antMatchers("/","/auth/**", "/js/**", "css/**","/image/**", "/dummy/**") 
 				.permitAll()  // 이 주소들은 누구나 들어올 수 있다.
