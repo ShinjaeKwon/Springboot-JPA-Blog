@@ -13,6 +13,14 @@
 				<c:choose>
 					<c:when test="${board.user.role == 'USER'}">
 						<a href="/board/${board.id}" class="btn btn-primary">상세보기</a>
+						<c:choose>
+							<c:when test="${board.state == 1}">
+								<img height="38px" src="/image/selled.png">
+							</c:when>
+							<c:otherwise>	
+								<img height="38px" src="/image/sell.png">
+							</c:otherwise>
+						</c:choose>
 					</c:when>
 					<c:otherwise> 
 						<a href="/board/${board.id}" class="btn btn-warning">상세보기</a>

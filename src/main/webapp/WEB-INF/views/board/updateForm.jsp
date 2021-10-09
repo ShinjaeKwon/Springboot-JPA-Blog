@@ -14,6 +14,7 @@
 		</div>
 	</form>
 	<button id="btn-update" class="btn btn-primary">글수정완료</button>
+	<button id="btn-sell" class="btn btn-primary">판매완료로 변경</button>
 </div>
 
 <script>

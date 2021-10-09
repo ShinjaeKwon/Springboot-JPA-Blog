@@ -5,10 +5,11 @@
 
 <div class="container">
 	<form>
+		<input type="hidden" id="state" value="${board.state}">
 		<div class="form-group">
 			<input type="text" class="form-control" placeholder="Enter Title" id="title">
 		</div>
-
+		
 		<div class="form-group">
 			<textarea class="form-control summernote" rows="5" id="content"></textarea>
 		</div>

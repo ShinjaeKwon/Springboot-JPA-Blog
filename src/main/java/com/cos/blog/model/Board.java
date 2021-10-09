@@ -57,6 +57,8 @@ public class Board {
 	
 	@CreationTimestamp //자동 현재 시간 삽입
 	private Timestamp createDate;
+	
+	private int state; //판매상태 0 = 판매중, 1 = 판매완료
 }
 
 // @OneToMany의 default fetch값 : fetch = FetchType.LAZY,  필요할때 땡겨올 경우(댓글 펼치기) LAZY 전략 사용

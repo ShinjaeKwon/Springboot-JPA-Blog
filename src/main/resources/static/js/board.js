@@ -12,6 +12,9 @@ let index = {
 		$("#btn-reply-save").on("click", () => {
 			this.replySave();
 		});
+		$("#btn-sell").on("click", () => {
+			this.sell();
+		});	
 	},
 
 	save: function() {
@@ -138,6 +141,41 @@ let index = {
 		});
 
 	},
+	sell: function() {
+		if($("#title").val() == ""){
+			alert("제목을 입력해주세요.");
+			$("#title").focus();
+			return false;
+		}
+		if($("#content").val() == ""){
+			alert("내용을 입력해주세요.");
+			$("#content").focus();
+			return false;
+		}
+		
+		let id= $("#id").val();
+			
+		let data = {
+			title: $("#title").val(),
+			content: $("#content").val(),	
+			state: $("state").val()		
+		};
+	
+		$.ajax({
+			type: "PUT",
+			url: "/api/board/"+id+"/state",
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json"
+		}).done(function(resp) {
+			alert("판매완료로 변경되었습니다.");
+			location.href = "/"
+		}).fail(function(error) {
+			alert(JSON.stringify(error));
+		});
+
+	},
+	
 }
 
 index.init();
