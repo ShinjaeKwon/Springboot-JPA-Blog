@@ -1,13 +1,21 @@
 package com.cos.blog;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.cos.blog.crawler.Nike;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class BlogApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BlogApplication.class, args);
+		
+//		Crawling crawling = new Crawling();
+//		crawling.crawling();
+	
+		Nike nike = new Nike();
+		nike.crawling("https://www.nike.com/kr/launch/?type=upcoming");
+//		nike.crawling("https://www.naver.com/");
+		
+		System.out.println(" 끝");
+//		SpringApplication.run(BlogApplication.class, args);
 	}
 
 }

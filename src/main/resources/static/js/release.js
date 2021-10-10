@@ -9,6 +9,9 @@ let index = {
 		$("#btn-update").on("click", () => {
 			this.update();
 		});
+		$("#btn-release-update").on("click", () => {
+			this.release_update();
+		})		
 		
 	},
 

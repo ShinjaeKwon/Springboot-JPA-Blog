@@ -66,7 +66,6 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>3.141.59</version>
 		</dependency>
 
 
@@ -80,7 +79,6 @@
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			<version>1.1.0.Final</version>
 			<scope>compile</scope>
 			<optional>true</optional>
 		</dependency>
