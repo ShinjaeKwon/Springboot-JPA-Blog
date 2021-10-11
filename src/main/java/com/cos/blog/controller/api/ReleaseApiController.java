@@ -43,23 +43,26 @@ public class ReleaseApiController {
 	}
 	
 	@PostMapping("/api/release/update")
-	public ResponseDto<Integer> releaseUpdate(@RequestBody ReleaseShoe board, @AuthenticationPrincipal PrincipalDetail principal) { 
-		System.out.println("업데이트 시작");
+	public ResponseDto<Integer> releaseUpdate(@RequestBody ReleaseShoe board1, @AuthenticationPrincipal PrincipalDetail principal) { 
 		Crawling crawling = new Crawling();
 		String[] info = crawling.crawling();
 		for(int i=0; i<info.length; i++) {
-			StringTokenizer st = new StringTokenizer(info[0],"|");
+			System.out.println(i+"번째 반복");
+			ReleaseShoe board = new ReleaseShoe();
+			StringTokenizer st = new StringTokenizer(info[i],"|");
 			board.setTitle(st.nextToken());
 			String src = st.nextToken();
 			String href = st.nextToken();
 			board.setContent("<p><img src=\""+src+"\" style=\"width: 50%;\"><p>"+
-				"<p><a href=\"" + href +"\" target=\"_blank\">"+href+"</a><br></p>"
-					);
+				"<p><a href=\"" + href +"\" target=\"_blank\">"+href+"</a><br></p>");
 			releaseService.발매정보업데이트(board, principal.getUser());
+			
 		}
-		
+
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
 	}
+
+	
 
 }
 

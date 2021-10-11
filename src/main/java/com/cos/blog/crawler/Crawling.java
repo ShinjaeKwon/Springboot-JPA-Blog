@@ -32,7 +32,7 @@ public class Crawling {
 		WebDriver driver = new ChromeDriver(options);
 		
 		//웹페이지 요청
-		 String url = "https://www.nike.com/kr/launch/?type=upcoming";
+		String url = "https://www.nike.com/kr/launch/?type=upcoming";
 		
 		driver.get(url);
 		try {Thread.sleep(3000);} catch (InterruptedException e) {}
