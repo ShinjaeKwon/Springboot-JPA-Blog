@@ -13,6 +13,13 @@
 		</div>
 	</form>
 	<button id="btn-save" class="btn btn-primary">글쓰기완료</button>
+	<c:choose>
+	<c:when test="${principal.user.role == 'ADMIN' }">
+		<button id="btn-release-update" class="btn btn-warning">발매정보 업데이트</button>
+	</c:when>
+	<c:otherwise>
+	</c:otherwise>
+</c:choose>
 </div>
 <br>
 

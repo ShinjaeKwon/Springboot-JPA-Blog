@@ -14,13 +14,7 @@
 		</div>
 	</c:forEach>
 </div>
-<c:choose>
-	<c:when test="${principal.user.role == 'ADMIN' }">
-		<button id="btn-release-update" class="btn btn-warning">발매정보 업데이트</button>
-	</c:when>
-	<c:otherwise>
-	</c:otherwise>
-</c:choose>
+
 
 <ul class="pagination justify-content-center">
 	<c:choose>

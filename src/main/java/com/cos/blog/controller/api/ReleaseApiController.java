@@ -1,5 +1,7 @@
 package com.cos.blog.controller.api;
 
+import java.util.StringTokenizer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cos.blog.config.auth.PrincipalDetail;
+import com.cos.blog.crawler.Crawling;
 import com.cos.blog.dto.ResponseDto;
 import com.cos.blog.model.ReleaseShoe;
 import com.cos.blog.service.ReleaseService;
@@ -39,6 +42,24 @@ public class ReleaseApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
 	}
 	
+	@PostMapping("/api/release/update")
+	public ResponseDto<Integer> releaseUpdate(@RequestBody ReleaseShoe board, @AuthenticationPrincipal PrincipalDetail principal) { 
+		System.out.println("업데이트 시작");
+		Crawling crawling = new Crawling();
+		String[] info = crawling.crawling();
+		for(int i=0; i<info.length; i++) {
+			StringTokenizer st = new StringTokenizer(info[0],"|");
+			board.setTitle(st.nextToken());
+			String src = st.nextToken();
+			String href = st.nextToken();
+			board.setContent("<p><img src=\""+src+"\" style=\"width: 50%;\"><p>"+
+				"<p><a href=\"" + href +"\" target=\"_blank\">"+href+"</a><br></p>"
+					);
+			releaseService.발매정보업데이트(board, principal.getUser());
+		}
+		
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
+	}
 
 }
 

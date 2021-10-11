@@ -1,4 +1,4 @@
-package com.cos.blog.test;
+package com.cos.blog.crawler;
 
 import java.util.List;
 
@@ -9,10 +9,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Crawling {
+
 	public static final String WEB_DRIVER_ID = "webdriver.chrome.driver"; //드라이버 ID
 	public static final String WEB_DRIVER_PATH = "src/main/resources/static/driver/chromedriver.exe"; //드라이버 경로
 	
-	public void crawling() {
+	public String[] crawling() {
 		//드라이버 설정
 		try {
 			System.setProperty(WEB_DRIVER_ID, WEB_DRIVER_PATH);
@@ -38,6 +39,8 @@ public class Crawling {
 
 		
 		List<WebElement> el1 = driver.findElements(By.cssSelector(".product-card"));
+		String[] src_href = new String[el1.size()];
+		
 		for(int i=0; i<el1.size(); i++){
 			
 			WebElement img = el1.get(i)
@@ -48,11 +51,12 @@ public class Crawling {
 			WebElement a = el1.get(i)
 					.findElement(By.cssSelector("div > a"));
 			String href = a.getAttribute("href");
+			String title = a.getAttribute("title");
 			
-			
-			System.out.println(i + "번 신발 이미지 :" + src );
-			System.out.println(i + "번 신발 주소 : " + href);
+			src_href[i] = title + "|" + src + "|" + href;
+			System.out.println(src_href[i]);
 		}
+	
 		
 		
 		try {
@@ -67,8 +71,8 @@ public class Crawling {
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
+		
+		return src_href;
 
 	}
-	
-	
 }

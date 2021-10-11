@@ -91,6 +91,29 @@ let index = {
 		});
 
 	},
+	
+	release_update: function() {
+		
+		let data = {
+			title: $("#title").val(),
+			content: $("#content").val()
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: "/api/release/update",
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=UTF-8",
+			dataType: "json"
+		}).done(function(resp) {
+			alert("업데이트가 완료되었습니다.");
+			location.href = "/release"
+		}).fail(function(error) {
+			alert(JSON.stringify(error));
+		});
+
+	},
+	
 }
 
 index.init();

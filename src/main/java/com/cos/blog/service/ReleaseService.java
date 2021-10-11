@@ -22,6 +22,13 @@ public class ReleaseService {
 		board.setUser(user);
 		releaseRepository.save(board);
 	}
+	@Transactional
+	public void 발매정보업데이트(ReleaseShoe board, User user) { 
+			board.setCount(0);
+			board.setUser(user);
+			releaseRepository.save(board);
+	}
+	
 	@Transactional(readOnly = true)
 	public Page<ReleaseShoe> 글목록(Pageable pageable) {
 		return releaseRepository.findAll(pageable);
