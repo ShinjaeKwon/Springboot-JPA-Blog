@@ -29,7 +29,14 @@
 			</div>
 		</div>
 	</c:forEach>
-
+	<div>
+		<form action="/board/search" method="get">
+			<div class="search">
+				<input name="keyword" type="text" placeholder="검색어를 입력해주세요."> 
+			</div>
+			<button>검색</button>
+		</form>
+	</div>
 </div>
 <ul class="pagination justify-content-center">
 	<c:choose>

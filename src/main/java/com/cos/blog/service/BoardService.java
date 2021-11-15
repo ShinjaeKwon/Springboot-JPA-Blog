@@ -1,11 +1,15 @@
 package com.cos.blog.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cos.blog.dto.BoardDto;
 import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Board;
 import com.cos.blog.model.User;
@@ -93,6 +97,28 @@ public class BoardService {
 	@Transactional
 	public void 댓글삭제(int replyId) {
 		replyRepository.deleteById(replyId);
+	}
+	
+	@Transactional
+	public List<BoardDto> searchPosts(String keyword){
+		List<Board> boards = boardRepository.findByTitleContaining(keyword);
+		List<BoardDto> boardDtoList = new ArrayList<BoardDto>();
+		
+		if(boards.isEmpty()) return boardDtoList;
+		
+		for(Board board : boards) {
+			boardDtoList.add(this.convertEntityToDto(board));
+		}
+		
+		return boardDtoList;
+	}
+	
+	private BoardDto convertEntityToDto(Board board) {
+		return BoardDto.builder()
+				.id(board.getId())
+				.title(board.getTitle())
+				.content(board.getContent())
+				.build();
 	}
 
 }
