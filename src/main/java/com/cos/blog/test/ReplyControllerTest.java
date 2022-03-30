@@ -14,23 +14,21 @@ import com.cos.blog.repository.ReplyRepository;
 
 @RestController
 public class ReplyControllerTest {
-	
+
 	@Autowired
 	private BoardRepository boardRepository;
-	
+
 	@Autowired
 	private ReplyRepository replyRepository;
-	
+
 	@GetMapping("/test/board/{id}")
 	public Board getBoard(@PathVariable int id) {
 		return boardRepository.findById(id).get(); //jackson 라이브러리 (오브젝트 json으로 리턴)=>모델의 getter를 호출
 	}
-	
+
 	@GetMapping("/test/reply")
 	public List<Reply> getReply() {
 		return replyRepository.findAll();
 	}
-	
-	
 
 }

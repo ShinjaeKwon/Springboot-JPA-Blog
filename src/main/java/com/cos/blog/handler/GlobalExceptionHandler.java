@@ -11,10 +11,9 @@ import com.cos.blog.dto.ResponseDto;
 @RestController
 public class GlobalExceptionHandler {
 
-	@ExceptionHandler(value=Exception.class) //Exception가 발생하면 아래의 함수가 처리한다.
+	@ExceptionHandler(value = Exception.class) //Exception가 발생하면 아래의 함수가 처리한다.
 	public ResponseDto<String> handleArgumentException(IllegalArgumentException e) {
 		return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
 	}
-	
-	
+
 }

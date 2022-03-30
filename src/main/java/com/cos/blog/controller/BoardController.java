@@ -17,44 +17,45 @@ import com.cos.blog.service.BoardService;
 
 @Controller
 public class BoardController {
-	
+
 	@Autowired
 	private BoardService boardService;
-	
-	@GetMapping({"","/"})
-	public String index(Model model, @PageableDefault(size=3, sort="id",direction = Direction.DESC)Pageable pageable) { 
+
+	@GetMapping({"", "/"})
+	public String index(Model model,
+		@PageableDefault(size = 3, sort = "id", direction = Direction.DESC) Pageable pageable) {
 		model.addAttribute("boards", boardService.글목록(pageable));
 		return "index";
 	}
-	
+
 	@GetMapping("/board/{id}")
 	public String findById(@PathVariable int id, Model model) {
 		model.addAttribute("board", boardService.글상세보기(id));
-		
+
 		return "board/detail";
 	}
-	
+
 	@GetMapping("board/{id}/updateForm")
 	public String updateForm(@PathVariable int id, Model model) {
 		model.addAttribute("board", boardService.글상세보기(id));
 		return "board/updateForm";
 	}
-	
+
 	// USER 권한이 필요
 	@GetMapping("/board/saveForm")
 	public String saveForm() {
 		return "board/saveForm";
 	}
-	
+
 	//게시글 검색
 	@GetMapping("/board/search")
-	public String search(@RequestParam(value="keyword") String keyword, Model model) {
+	public String search(@RequestParam(value = "keyword") String keyword, Model model) {
 		List<BoardDto> boardDtoList = boardService.searchPosts(keyword);
 		model.addAttribute("boardList", boardDtoList);
-		
+
 		return "index";
 	}
-	
+
 }
 
 //일반 Controller일때 리턴할때 viewResolver가 작동

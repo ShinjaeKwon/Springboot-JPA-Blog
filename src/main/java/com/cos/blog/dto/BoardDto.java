@@ -17,16 +17,16 @@ public class BoardDto {
 	private int id;
 	private String title;
 	private String content;
-	
+
 	public Board toEntity() {
 		Board build = Board.builder()
-				.id(id)
-				.title(title)
-				.content(content)
-				.build();
+			.id(id)
+			.title(title)
+			.content(content)
+			.build();
 		return build;
 	}
-	
+
 	@Builder
 	public BoardDto(int id, String title, String content) {
 		this.id = id;

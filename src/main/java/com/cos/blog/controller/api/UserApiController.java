@@ -20,7 +20,7 @@ public class UserApiController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -30,23 +30,20 @@ public class UserApiController {
 		userService.회원가입(user);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // 자바오브젝트를 JSON으로 변환해서 리턴(Jackson)
 	}
-	
+
 	@PutMapping("/user")
-	public ResponseDto<Integer> update(@RequestBody User user) { 
+	public ResponseDto<Integer> update(@RequestBody User user) {
 		userService.회원수정(user);
 		//여기서는 트렌잭션이 종료되기 때문에 DB에 값은 변경이 되지만,
 		//세션값은 변경이 되지 않은 상태이기 때문에 우리가 직접 세션값을 변경해준다.
-		
+
 		//세션 등록
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+			new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-				
-		
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
-	}
 
-	
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+	}
 
 }
 

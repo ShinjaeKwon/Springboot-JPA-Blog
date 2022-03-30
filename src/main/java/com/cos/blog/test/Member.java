@@ -18,7 +18,7 @@ public class Member {
 	private String username;
 	private String password;
 	private String email;
-	
+
 	@Builder
 	//Builder의 장점은 생성자의 순서가 상관없다.
 	//생성자를 통해 객체를 생성할때는 순서를 반드시 지켜야한다.
@@ -29,9 +29,5 @@ public class Member {
 		this.password = password;
 		this.email = email;
 	}
-	
-	
 
-	
-	
 }

@@ -25,44 +25,44 @@ public class ReleaseApiController {
 	private ReleaseService releaseService;
 
 	@PostMapping("/api/release")
-	public ResponseDto<Integer> save(@RequestBody ReleaseShoe board, @AuthenticationPrincipal PrincipalDetail principal) { 
+	public ResponseDto<Integer> save(@RequestBody ReleaseShoe board,
+		@AuthenticationPrincipal PrincipalDetail principal) {
 		releaseService.글쓰기(board, principal.getUser());
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
-	
+
 	@DeleteMapping("/api/release/{id}")
-	public ResponseDto<Integer> deleteById(@PathVariable int id){
+	public ResponseDto<Integer> deleteById(@PathVariable int id) {
 		releaseService.글삭제하기(id);
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
 
 	@PutMapping("/api/release/{id}")
-	public ResponseDto<Integer> update(@PathVariable int id, @RequestBody ReleaseShoe board){	
+	public ResponseDto<Integer> update(@PathVariable int id, @RequestBody ReleaseShoe board) {
 		releaseService.글수정하기(id, board);
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
-	
+
 	@PostMapping("/api/release/update")
-	public ResponseDto<Integer> releaseUpdate(@RequestBody ReleaseShoe board1, @AuthenticationPrincipal PrincipalDetail principal) { 
+	public ResponseDto<Integer> releaseUpdate(@RequestBody ReleaseShoe board1,
+		@AuthenticationPrincipal PrincipalDetail principal) {
 		Crawling crawling = new Crawling();
 		String[] info = crawling.crawling();
-		for(int i=0; i<info.length; i++) {
-			System.out.println(i+"번째 반복");
+		for (int i = 0; i < info.length; i++) {
+			System.out.println(i + "번째 반복");
 			ReleaseShoe board = new ReleaseShoe();
-			StringTokenizer st = new StringTokenizer(info[i],"|");
+			StringTokenizer st = new StringTokenizer(info[i], "|");
 			board.setTitle(st.nextToken());
 			String src = st.nextToken();
 			String href = st.nextToken();
-			board.setContent("<p><img src=\""+src+"\" style=\"width: 50%;\"><p>"+
-				"<p><a href=\"" + href +"\" target=\"_blank\">"+href+"</a><br></p>");
+			board.setContent("<p><img src=\"" + src + "\" style=\"width: 50%;\"><p>" +
+				"<p><a href=\"" + href + "\" target=\"_blank\">" + href + "</a><br></p>");
 			releaseService.발매정보업데이트(board, principal.getUser());
-			
+
 		}
 
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
-
-	
 
 }
 

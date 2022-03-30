@@ -19,30 +19,29 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder //빌더 패턴
 @Entity
 public class ReleaseShoe {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(nullable = false, length = 100)
 	private String title;
-	
+
 	@Lob
-	private String content;  
-	
-	private int count; 
-	
+	private String content;
+
+	private int count;
+
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="userId") 
-	private User user; 
-	
-	@CreationTimestamp 
+	@JoinColumn(name = "userId")
+	private User user;
+
+	@CreationTimestamp
 	private Timestamp createDate;
 }

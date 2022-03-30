@@ -2,7 +2,7 @@ package com.cos.blog.crawling.test;
 
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -47,7 +47,7 @@ public class CrawlingTest {
 
 		// 이미지 주소
 		List<WebElement> el1 = driver
-				.findElements(By.className("img-component image-component mod-image-component u-full-width"));
+			.findElements(By.className("img-component image-component mod-image-component u-full-width"));
 		List<WebElement> el2 = driver.findElements(By.className("card-link d-sm-b")); // 링크 (이름포함)
 		// 출시 시간
 		List<WebElement> el3 = driver.findElements(By.className("headline-5"));

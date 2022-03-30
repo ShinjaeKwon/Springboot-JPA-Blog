@@ -27,18 +27,18 @@ public class Reply {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
 	private int id;
-	
+
 	@Column(nullable = false, length = 200)
 	private String content;
-	
+
 	@ManyToOne //하나의 게시글에는 여러개의 답변을 달 수 있다.
-	@JoinColumn(name="boardId")
+	@JoinColumn(name = "boardId")
 	private Board board;
-	
+
 	@ManyToOne //여러개의 답변을 하나의 유저가 쓸 수 있다.
-	@JoinColumn(name="userId")
+	@JoinColumn(name = "userId")
 	private User user;
-	
+
 	@CreationTimestamp
 	private Timestamp createDate;
 

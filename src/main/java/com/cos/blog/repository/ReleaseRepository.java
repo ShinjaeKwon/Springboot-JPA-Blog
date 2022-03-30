@@ -4,8 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cos.blog.model.ReleaseShoe;
 
-public interface ReleaseRepository  extends JpaRepository<ReleaseShoe, Integer>{
-	
+public interface ReleaseRepository extends JpaRepository<ReleaseShoe, Integer> {
 
 }
 

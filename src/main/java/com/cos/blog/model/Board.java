@@ -25,39 +25,39 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder //빌더 패턴
 @Entity
 public class Board {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
 	private int id;
-	
+
 	@Column(nullable = false, length = 100)
 	private String title;
-	
+
 	@Lob // 대용량 데이터 
 	private String content;  //섬머 노트 라이브러리 <html> 태그가 섞여서 디자인이 된다.
-	
+
 	private int count; //조회수
-	
+
 	@ManyToOne(fetch = FetchType.EAGER) // Board : many , user : one, 한명의 유저는 여러개의 게시글 작성이 가능하다. (연관관계 설정)
-	@JoinColumn(name="userId") // 데이터베이스에 만들어질 때 컬럼이름은 설정한 값으로 만들어진다. 자동으로 FK키를 만들어준다.
+	@JoinColumn(name = "userId") // 데이터베이스에 만들어질 때 컬럼이름은 설정한 값으로 만들어진다. 자동으로 FK키를 만들어준다.
 	private User user; //DB는 오브젝트를 저장할 수 없다. FK, 자바는 오브젝트를 저장할 수 있다. JPA (ORM)을 사용하면 오브젝트를 저장할 수 있다.
-	
-	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE) // 하나의 게시글에는 여러개의 답변을 달 수 있다 , mappedBy : 연관관계의 주인이 아니다.(난 FK가 아니다) DB에 컬럼을 만들지 말라.
+
+	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	// 하나의 게시글에는 여러개의 답변을 달 수 있다 , mappedBy : 연관관계의 주인이 아니다.(난 FK가 아니다) DB에 컬럼을 만들지 말라.
 	@JsonIgnoreProperties({"board"}) //Reply의 Board 호출 안함 (무한 참조 방지), 다이렉트로 접근하면 데이터를 주지만, 참조로는 데이터를 주지 않는다.
 	@OrderBy("id desc") //정렬 (내림차순)
 	private List<Reply> replys;
 	//cascade = CascadeType.REMOVE , Board의 글을 지울 때 댓글이 있어도 지운다.
-	
+
 	@CreationTimestamp //자동 현재 시간 삽입
 	private Timestamp createDate;
-	
+
 	private int state; //판매상태 0 = 판매중, 1 = 판매완료
 }
 

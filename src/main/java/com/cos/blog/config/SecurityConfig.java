@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private PrincipalDetailService principalDetailService;
-	
+
 	@Bean //빈등록을하면 어디서든 사용이 가능하다.
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public BCryptPasswordEncoder encodePWD() {
 		return new BCryptPasswordEncoder(); //리턴값을 Spring이 관리한다.
 	}
-	
+
 	// 시큐리티가 대신 로그인해주는데 password를 가로채기를 하는데
 	// 해당 password가 뭘로 해쉬가 되어 회원가입이 되있는지 알아야
 	// 같은 해쉬로 암호화 해서 DB에 있는 해쉬랑 비교할 수 있음
@@ -40,24 +40,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(principalDetailService).passwordEncoder(encodePWD());
 	}
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.csrf().disable() //csrf 토큰 비활성화 (테스트시 걸어두는 게 좋다)
 			.authorizeRequests()
-				.antMatchers("/","/auth/**", "/js/**", "css/**","/image/**", "/dummy/**") 
-				.permitAll()  // 이 주소들은 누구나 들어올 수 있다.
-				.anyRequest() //위에가 아닌것들은
-				.authenticated() //인증이 되야된다
+			.antMatchers("/", "/auth/**", "/js/**", "css/**", "/image/**", "/dummy/**")
+			.permitAll()  // 이 주소들은 누구나 들어올 수 있다.
+			.anyRequest() //위에가 아닌것들은
+			.authenticated() //인증이 되야된다
 			.and()
-				.formLogin()
-				.loginPage("/auth/loginForm")
-				.loginProcessingUrl("/auth/loginProc")//스프링 시큐리티가 해당 주소로 요청오는 로그인을 가로채서 대신 로그인을 해준다.
-				.failureUrl("/auth/loginForm?error")
-				.usernameParameter("username")
-				.passwordParameter("password")
-				.permitAll();
+			.formLogin()
+			.loginPage("/auth/loginForm")
+			.loginProcessingUrl("/auth/loginProc")//스프링 시큐리티가 해당 주소로 요청오는 로그인을 가로채서 대신 로그인을 해준다.
+			.failureUrl("/auth/loginForm?error")
+			.usernameParameter("username")
+			.passwordParameter("password")
+			.permitAll();
 	}
 }
 

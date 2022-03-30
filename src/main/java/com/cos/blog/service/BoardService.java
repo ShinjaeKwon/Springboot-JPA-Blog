@@ -18,27 +18,26 @@ import com.cos.blog.repository.ReplyRepository;
 
 @Service
 public class BoardService {
-	
+
 	@Autowired
 	private BoardRepository boardRepository;
-	
+
 	@Autowired
 	private ReplyRepository replyRepository;
-	
-//	@Autowired의 의미 1
-//	private BoardRepository boardRepository;
-//	private ReplyRepository replyRepository;
-//	
-//	public BoardService(BoardRepository bRepo, ReplyRepository rRepo) {
-//		this.boardRepository = bRepo;
-//		this.replyRepository = rRepo;
-//	}
-	
-//	@Autowired의 의미 2
-//	Service 클래스에 @RequiredArgsConstructor를 붙여준다. (final도 알아서 생성자로 초기화시켜줌)
-//	private final BoardRepository boardRepository;
-//	private final ReplyRepository replyRepository;
 
+	//	@Autowired의 의미 1
+	//	private BoardRepository boardRepository;
+	//	private ReplyRepository replyRepository;
+	//
+	//	public BoardService(BoardRepository bRepo, ReplyRepository rRepo) {
+	//		this.boardRepository = bRepo;
+	//		this.replyRepository = rRepo;
+	//	}
+
+	//	@Autowired의 의미 2
+	//	Service 클래스에 @RequiredArgsConstructor를 붙여준다. (final도 알아서 생성자로 초기화시켜줌)
+	//	private final BoardRepository boardRepository;
+	//	private final ReplyRepository replyRepository;
 
 	@Transactional
 	public void 글쓰기(Board board, User user) { // title, content
@@ -47,6 +46,7 @@ public class BoardService {
 		board.setState(0);
 		boardRepository.save(board);
 	}
+
 	@Transactional(readOnly = true)
 	public Page<Board> 글목록(Pageable pageable) {
 		return boardRepository.findAll(pageable);
@@ -63,62 +63,64 @@ public class BoardService {
 	public void 글삭제하기(int id) {
 		boardRepository.deleteById(id);
 	}
-	
+
 	@Transactional
 	public void 글수정하기(int id, Board requestBoard) {
 		Board board = boardRepository.findById(id)
-				.orElseThrow(() -> {
-					return new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다.");
-				}); //영속화 완료
+			.orElseThrow(() -> {
+				return new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다.");
+			}); //영속화 완료
 		board.setTitle(requestBoard.getTitle());
 		board.setContent(requestBoard.getContent());
 		//해당 함수가 종료시에 (Service가 종료될 때) 트랜잭션이 종료된다. 이때 더티체킹
 		//자동 업데이트가됨. db쪽에 flush
 	}
-	
+
 	@Transactional
 	public void 업데이트(int id, Board requestBoard) {
 		Board board = boardRepository.findById(id)
-				.orElseThrow(() -> {
-					return new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다.");
-				}); //영속화 완료
+			.orElseThrow(() -> {
+				return new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다.");
+			}); //영속화 완료
 		board.setTitle(requestBoard.getTitle());
 		board.setContent(requestBoard.getContent());
 		board.setState(1);
 		//해당 함수가 종료시에 (Service가 종료될 때) 트랜잭션이 종료된다. 이때 더티체킹
 		//자동 업데이트가됨. db쪽에 flush
 	}
-	
+
 	@Transactional
 	public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
-		replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
+		replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(),
+			replySaveRequestDto.getContent());
 	}
-	
+
 	@Transactional
 	public void 댓글삭제(int replyId) {
 		replyRepository.deleteById(replyId);
 	}
-	
+
 	@Transactional
-	public List<BoardDto> searchPosts(String keyword){
+	public List<BoardDto> searchPosts(String keyword) {
 		List<Board> boards = boardRepository.findByTitleContaining(keyword);
 		List<BoardDto> boardDtoList = new ArrayList<BoardDto>();
-		
-		if(boards.isEmpty()) return boardDtoList;
-		
-		for(Board board : boards) {
+
+		if (boards.isEmpty())
+			return boardDtoList;
+
+		for (Board board : boards) {
 			boardDtoList.add(this.convertEntityToDto(board));
 		}
-		
+
 		return boardDtoList;
 	}
-	
+
 	private BoardDto convertEntityToDto(Board board) {
 		return BoardDto.builder()
-				.id(board.getId())
-				.title(board.getTitle())
-				.content(board.getContent())
-				.build();
+			.id(board.getId())
+			.title(board.getTitle())
+			.content(board.getContent())
+			.build();
 	}
 
 }
