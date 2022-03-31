@@ -3,7 +3,6 @@
 <%@ include file="../layout/header.jsp" %>
 
 <div class="container">
-    <!--  <form action="/user/join" method="POST"> 과거 방식-->
     <form>
         <input type="hidden" id="id" value="${principal.user.id}">
         <div class="form-group">

@@ -11,7 +11,17 @@
         </div>
 
         <div class="form-group">
-            <textarea class="form-control summernote" rows="5" id="content"></textarea>
+            <textarea class="form-control summernote" rows="5" id="content" >
+
+                판매 물품 이름 : <br>
+                사이즈 : <br>
+                판매 가격 : <br>
+                연락 가능 번호 : <br>
+                직거래 유무 :  <br>
+                물품 상태(1~10) : <br>
+                물품 사진 :
+
+            </textarea>
         </div>
     </form>
     <button id="btn-save" class="btn btn-primary">글쓰기완료</button>

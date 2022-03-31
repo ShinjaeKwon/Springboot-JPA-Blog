@@ -3,8 +3,9 @@
 <%@ include file="layout/header.jsp" %>
 
 <div class="container">
-    <h2>거래 게시판</h2><br><br>
-
+    <h2>판매 게시판</h2>
+    <a href="/board/saveForm" class="btn btn-warning">판매글쓰기</a>
+    <br><br>
     <c:forEach var="board" items="${boards.content}">
         <div class="card m-2">
             <div class="card-body">
