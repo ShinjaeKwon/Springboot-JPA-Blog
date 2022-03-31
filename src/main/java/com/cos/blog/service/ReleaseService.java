@@ -37,9 +37,8 @@ public class ReleaseService {
 
 	@Transactional(readOnly = true)
 	public ReleaseShoe 글상세보기(int id) {
-		return releaseRepository.findById(id).orElseThrow(() -> {
-			return new IllegalArgumentException("글 상세보기 실패 : 아이디를 찾을 수 없습니다.");
-		});
+		return releaseRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("글 상세보기 실패 : 아이디를 찾을 수 없습니다."));
 	}
 
 	@Transactional
@@ -50,13 +49,13 @@ public class ReleaseService {
 	@Transactional
 	public void 글수정하기(int id, ReleaseShoe requestBoard) {
 		ReleaseShoe board = releaseRepository.findById(id)
-			.orElseThrow(() -> {
-				return new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다.");
-			}); //영속화 완료
+			.orElseThrow(() -> new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다."));
 		board.setTitle(requestBoard.getTitle());
 		board.setContent(requestBoard.getContent());
-		//해당 함수가 종료시에 (Service가 종료될 때) 트랜잭션이 종료된다. 이때 더티체킹
-		//자동 업데이트가됨. db쪽에 flush
 	}
 
+	@Transactional
+	public void deleteAll() {
+		releaseRepository.deleteAll();
+	}
 }

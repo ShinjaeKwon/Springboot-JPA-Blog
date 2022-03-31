@@ -19,7 +19,7 @@ public class ReleaseController {
 
 	@GetMapping({"/release"})
 	public String index(Model model,
-		@PageableDefault(size = 3, sort = "id", direction = Direction.DESC) Pageable pageable) {
+		@PageableDefault(size = 10, sort = "id", direction = Direction.DESC) Pageable pageable) {
 		model.addAttribute("release", releaseService.글목록(pageable));
 		return "release/release";
 	}

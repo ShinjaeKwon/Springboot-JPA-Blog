@@ -6,6 +6,9 @@ let index = {
         $("#btn-delete").on("click", () => {
             this.deleteById();
         });
+        $("#btn-release-delete").on("click", () => {
+            this.deleteAll();
+        });
         $("#btn-update").on("click", () => {
             this.update();
         });
@@ -59,6 +62,19 @@ let index = {
             alert(JSON.stringify(error));
         });
     },
+
+    deleteAll: function () {
+        $.ajax({
+            type: "DELETE",
+            url: "/api/release/deleteAll",
+        }).done(function (resp) {
+            alert("삭제가 완료되었습니다.");
+            location.href = "/release"
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
     update: function () {
         if ($("#title").val() == "") {
             alert("제목을 입력해주세요.");

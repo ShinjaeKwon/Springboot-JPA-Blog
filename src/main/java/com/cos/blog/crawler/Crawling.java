@@ -16,7 +16,15 @@ public class Crawling {
 
 		driver.get(url);
 		JavascriptExecutor js = (JavascriptExecutor)driver;
-		js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+
+		for (int i = 100; i < 1000; i += 100) {
+			js.executeScript("window.scrollBy(0,+" + i + ")");
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 
 		List<WebElement> el1 = driver.findElements(By.cssSelector(".product-card"));
 		String[] src_href = new String[el1.size()];

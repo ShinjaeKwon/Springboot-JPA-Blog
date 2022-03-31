@@ -3,15 +3,20 @@
 <%@ include file="../layout/header.jsp" %>
 
 <div class="container">
+    <c:if test="${principal.user.role == 'ADMIN'}">
+        <button type="button" id="btn-release-delete" class="btn btn-danger">전체 삭제</button>
+    </c:if>
 
     <c:forEach var="release" items="${release.content}">
         <div class="card m-2">
             <div class="card-body">
                 <h4 class="card-title">${release.title}</h4>
-                <a href="/release/${release.id}" class="btn btn-primary">발매정보보기</a>
+<%--                <a href="/release/${release.id}" class="btn btn-primary">발매정보보기</a>--%>
+                <div style="width: 400px">${release.content}</div>
             </div>
         </div>
     </c:forEach>
+
 </div>
 
 
@@ -36,5 +41,5 @@
 
 
 </ul>
-
+<script src="/js/release.js"></script>
 <%@ include file="../layout/footer.jsp" %>
