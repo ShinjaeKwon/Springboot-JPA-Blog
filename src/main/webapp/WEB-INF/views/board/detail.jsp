@@ -3,9 +3,7 @@
 <%@ include file="../layout/header.jsp" %>
 
 <div class="container">
-    <!-- 중앙배치 container -->
     <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
-
     <c:if test="${board.user.id == principal.user.id}">
         <a href="/board/${board.id}/updateForm" class="btn btn-warning">수정</a>
         <button id="btn-delete" class="btn btn-danger">삭제</button>
@@ -23,20 +21,21 @@
         <div>${board.content}</div>
     </div>
     <hr/>
-
-    <div class="card">
-        <form>
-            <input type="hidden" id="userId" value="${principal.user.id}">
-            <input type="hidden" id="boardId" value="${board.id}">
-            <div class="card-body">
-                댓글입력
-                <textarea id="reply-content" class="form-control" rows="1"></textarea>
-            </div>
-            <div class="card-footer">
-                <button type="button" id="btn-reply-save" class="btn btn-primary">등록</button>
-            </div>
-        </form>
-    </div>
+    <c:if test="${board.state != 1}">
+        <div class="card">
+            <form>
+                <input type="hidden" id="userId" value="${principal.user.id}">
+                <input type="hidden" id="boardId" value="${board.id}">
+                <div class="card-body">
+                    댓글입력
+                    <textarea id="reply-content" class="form-control" rows="1"></textarea>
+                </div>
+                <div class="card-footer">
+                    <button type="button" id="btn-reply-save" class="btn btn-primary">등록</button>
+                </div>
+            </form>
+        </div>
+    </c:if>
     <br/>
     <div class="card">
         <div class="card-header">댓글 리스트</div>
@@ -52,10 +51,8 @@
                     </div>
                 </li>
             </c:forEach>
-
         </ul>
     </div>
-
 </div>
 
 

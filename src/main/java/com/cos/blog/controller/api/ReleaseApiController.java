@@ -28,19 +28,19 @@ public class ReleaseApiController {
 	public ResponseDto<Integer> save(@RequestBody ReleaseShoe board,
 		@AuthenticationPrincipal PrincipalDetail principal) {
 		releaseService.글쓰기(board, principal.getUser());
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
 	@DeleteMapping("/api/release/{id}")
 	public ResponseDto<Integer> deleteById(@PathVariable int id) {
 		releaseService.글삭제하기(id);
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
 	@PutMapping("/api/release/{id}")
 	public ResponseDto<Integer> update(@PathVariable int id, @RequestBody ReleaseShoe board) {
 		releaseService.글수정하기(id, board);
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
 	@PostMapping("/api/release/update")
@@ -61,7 +61,7 @@ public class ReleaseApiController {
 
 		}
 
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 
 }

@@ -1,7 +1,5 @@
 package com.cos.blog.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.cos.blog.dto.BoardDto;
 import com.cos.blog.service.BoardService;
 
 @Controller
@@ -31,7 +28,6 @@ public class BoardController {
 	@GetMapping("/board/{id}")
 	public String findById(@PathVariable int id, Model model) {
 		model.addAttribute("board", boardService.글상세보기(id));
-
 		return "board/detail";
 	}
 
@@ -41,30 +37,16 @@ public class BoardController {
 		return "board/updateForm";
 	}
 
-	// USER 권한이 필요
 	@GetMapping("/board/saveForm")
 	public String saveForm() {
 		return "board/saveForm";
 	}
 
-	//게시글 검색
-	@GetMapping("/board/search")
-	public String search(@RequestParam(value = "keyword") String keyword, Model model) {
-		List<BoardDto> boardDtoList = boardService.searchPosts(keyword);
-		model.addAttribute("boardList", boardDtoList);
-
+	@GetMapping("/search")
+	public String search(@RequestParam(value = "keyword") String keyword, Model model,
+		@PageableDefault(size = 3, sort = "id", direction = Direction.DESC) Pageable pageable) {
+		model.addAttribute("boards", boardService.searchPosts(keyword, pageable));
 		return "index";
 	}
 
 }
-
-//일반 Controller일때 리턴할때 viewResolver가 작동
-
-//@AuthenticationPrincipal PrincipalDetail principal
-//	@GetMapping({"","/"})
-//	public String index(principal) { //컨트롤러에서 세션을 어케 찾나
-//		// System.out.println("로그인 사용자 아이디 : "+principal.getUsername());
-//		// /WEB-INF/view/index.jsp
-//		
-//		return "index";
-//	}

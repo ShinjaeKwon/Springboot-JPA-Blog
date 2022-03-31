@@ -15,6 +15,10 @@ let index = {
         $("#btn-sell").on("click", () => {
             this.sell();
         });
+        $("#btn-search-keyword").on("click", () => {
+            this.searchWord();
+        });
+
     },
 
     save: function () {
@@ -158,7 +162,7 @@ let index = {
         let data = {
             title: $("#title").val(),
             content: $("#content").val(),
-            state: $("state").val()
+            state: $("#state").val()
         };
 
         $.ajax({

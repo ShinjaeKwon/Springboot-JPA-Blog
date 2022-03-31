@@ -11,22 +11,17 @@ import org.openqa.selenium.safari.SafariDriver;
 public class Crawling {
 
 	public String[] crawling() {
-		//드라이버 설정
 		WebDriver driver = new SafariDriver();
-
-		//웹페이지 요청
 		String url = "https://www.nike.com/kr/launch/?type=upcoming";
 
 		driver.get(url);
-
 		JavascriptExecutor js = (JavascriptExecutor)driver;
-
 		js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+
 		List<WebElement> el1 = driver.findElements(By.cssSelector(".product-card"));
 		String[] src_href = new String[el1.size()];
 
 		for (int i = 0; i < el1.size(); i++) {
-
 			WebElement img = el1.get(i)
 				.findElement(By.cssSelector("div > a"))
 				.findElement(By.className("img-component"));
@@ -40,10 +35,9 @@ public class Crawling {
 			src_href[i] = title + " | " + src + " | " + href;
 			System.out.println(src_href[i]);
 		}
-
 		driver.close();
 
 		return src_href;
-
 	}
+
 }

@@ -22,21 +22,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder //빌더 패턴
-//ORM -> Java(다른언어) Object -> 테이블로 매핑해주는 기술
-@Entity // User 클래스가 MySQL에 테이블이 생성된다. 
-//@DynamicInsert // insert할때 null인 필드를 제외한다. 대신 enum 사용
+@Builder
+@Entity
 public class User {
 
-	@Id //Primary key
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //프로젝트에서 연결된 DB의 넘버링 전략을 따라간다.
-	private int id; // 시퀀스, auto_increment
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-	@Column(nullable = false, length = 100, unique = true) // @Column(nullable=false) : 널을 허락하지 않는다, legnth = 길이 설정
+	@Column(nullable = false, length = 100, unique = true)
 	@NotBlank(message = "Username은 필수 입력값 입니다.")
-	private String username; //아이디
+	private String username;
 
-	@Column(nullable = false, length = 100) // password 길이를 100으로 잡는 이유 : 해쉬(비밀번호 암호와)를 위해서
+	@Column(nullable = false, length = 100)
 	@NotBlank(message = "Password는 필수 입력값 입니다.")
 	private String password;
 
@@ -45,15 +43,12 @@ public class User {
 	@Email(message = "이메일 형식에 맞지 않습니다.")
 	private String email;
 
-	@Enumerated(EnumType.STRING)  //ENUM 타입이 String이라고 알려준다.
-	//@ColumnDefault("'user'") // 회원가입시 기본 role은 user이다.
-	private RoleType role; // Enum을 쓰는게 좋다. (데이터의 도메인을 만들 수 있다), //admin, user, manager처럼 권한을 준다. Enum전략을 쓸시 오타를 방지할 수 있다
+	@Enumerated(EnumType.STRING)
+	private RoleType role;
 
-	//도메인 : 범위가 정해짐. ex) 성별 : 남/여 등
+	private String oauth;
 
-	private String oauth; // kakao, google 
-
-	@CreationTimestamp //시간이 자동으로 입력된다. 
+	@CreationTimestamp
 	private Timestamp createDate;
 
 }

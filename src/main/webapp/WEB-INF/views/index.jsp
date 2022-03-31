@@ -3,6 +3,7 @@
 <%@ include file="layout/header.jsp" %>
 
 <div class="container">
+    <h2>거래 게시판</h2><br><br>
 
     <c:forEach var="board" items="${boards.content}">
         <div class="card m-2">
@@ -28,14 +29,8 @@
             </div>
         </div>
     </c:forEach>
-    <div>
-        <form action="/board/search" method="get">
-            <div class="search">
-                <input name="keyword" type="text" placeholder="검색어를 입력해주세요.">
-            </div>
-            <button>검색</button>
-        </form>
-    </div>
+
+
 </div>
 <ul class="pagination justify-content-center">
     <c:choose>
@@ -55,8 +50,34 @@
             <li class="page-item"><a class="page-link" href="?page=${boards.number+1}">Next</a></li>
         </c:otherwise>
     </c:choose>
-
-
 </ul>
+<div class="container">
+    <form action="/search" class="needs-validation" novalidate method="get">
+        <div class="form-group">
+            <input name="keyword" type="text" class="form-control" placeholder="게시글 검색어를 입력해주세요." required>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">게시글 검색어를 입력해주세요.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">검색</button>
+    </form>
+</div>
+
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 
 <%@ include file="layout/footer.jsp" %>

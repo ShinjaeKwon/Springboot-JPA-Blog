@@ -1,15 +1,11 @@
 package com.cos.blog.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cos.blog.dto.BoardDto;
 import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Board;
 import com.cos.blog.model.User;
@@ -25,22 +21,8 @@ public class BoardService {
 	@Autowired
 	private ReplyRepository replyRepository;
 
-	//	@Autowired의 의미 1
-	//	private BoardRepository boardRepository;
-	//	private ReplyRepository replyRepository;
-	//
-	//	public BoardService(BoardRepository bRepo, ReplyRepository rRepo) {
-	//		this.boardRepository = bRepo;
-	//		this.replyRepository = rRepo;
-	//	}
-
-	//	@Autowired의 의미 2
-	//	Service 클래스에 @RequiredArgsConstructor를 붙여준다. (final도 알아서 생성자로 초기화시켜줌)
-	//	private final BoardRepository boardRepository;
-	//	private final ReplyRepository replyRepository;
-
 	@Transactional
-	public void 글쓰기(Board board, User user) { // title, content
+	public void 글쓰기(Board board, User user) {
 		board.setCount(0);
 		board.setUser(user);
 		board.setState(0);
@@ -54,9 +36,8 @@ public class BoardService {
 
 	@Transactional(readOnly = true)
 	public Board 글상세보기(int id) {
-		return boardRepository.findById(id).orElseThrow(() -> {
-			return new IllegalArgumentException("글 상세보기 실패 : 아이디를 찾을 수 없습니다.");
-		});
+		return boardRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("글 상세보기 실패 : 아이디를 찾을 수 없습니다."));
 	}
 
 	@Transactional
@@ -67,26 +48,27 @@ public class BoardService {
 	@Transactional
 	public void 글수정하기(int id, Board requestBoard) {
 		Board board = boardRepository.findById(id)
-			.orElseThrow(() -> {
-				return new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다.");
-			}); //영속화 완료
+			.orElseThrow(() -> new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다."));
 		board.setTitle(requestBoard.getTitle());
 		board.setContent(requestBoard.getContent());
-		//해당 함수가 종료시에 (Service가 종료될 때) 트랜잭션이 종료된다. 이때 더티체킹
-		//자동 업데이트가됨. db쪽에 flush
+
 	}
 
 	@Transactional
 	public void 업데이트(int id, Board requestBoard) {
+		System.out.println("Service : 변경 시작");
 		Board board = boardRepository.findById(id)
-			.orElseThrow(() -> {
-				return new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다.");
-			}); //영속화 완료
-		board.setTitle(requestBoard.getTitle());
-		board.setContent(requestBoard.getContent());
-		board.setState(1);
-		//해당 함수가 종료시에 (Service가 종료될 때) 트랜잭션이 종료된다. 이때 더티체킹
-		//자동 업데이트가됨. db쪽에 flush
+			.orElseThrow(() -> new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다."));
+		System.out.println("ID 찾기 완료 ");
+		if (requestBoard.getState() != 1) {
+			board.setTitle("(판매완료) " + requestBoard.getTitle());
+			board.setContent(requestBoard.getContent());
+			board.setState(1);
+		}
+		System.out.println("title : " + board.getTitle());
+		System.out.println("content : " + board.getContent());
+		System.out.println("state : " + board.getState());
+		System.out.println("boardstate 변경 완료");
 	}
 
 	@Transactional
@@ -100,44 +82,10 @@ public class BoardService {
 		replyRepository.deleteById(replyId);
 	}
 
-	@Transactional
-	public List<BoardDto> searchPosts(String keyword) {
-		List<Board> boards = boardRepository.findByTitleContaining(keyword);
-		List<BoardDto> boardDtoList = new ArrayList<BoardDto>();
-
-		if (boards.isEmpty())
-			return boardDtoList;
-
-		for (Board board : boards) {
-			boardDtoList.add(this.convertEntityToDto(board));
-		}
-
-		return boardDtoList;
-	}
-
-	private BoardDto convertEntityToDto(Board board) {
-		return BoardDto.builder()
-			.id(board.getId())
-			.title(board.getTitle())
-			.content(board.getContent())
-			.build();
+	@Transactional(readOnly = true)
+	public Page<Board> searchPosts(String keyword, Pageable pageable) {
+		boardRepository.findByTitleContaining(keyword, pageable);
+		return boardRepository.findByTitleContaining(keyword, pageable);
 	}
 
 }
-
-//User user = userRepository.findById(replySaveRequestDto.getUserId())
-//.orElseThrow(() -> {
-//return new IllegalArgumentException("댓글 쓰기 실패 : 유저 id를 찾을 수 없습니다.");
-//});
-//
-//Board board = boardRepository.findById(replySaveRequestDto.getBoardId())
-//.orElseThrow(() -> {
-//return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 id를 찾을 수 없습니다.");
-//});
-//
-//Reply reply = Reply.builder()
-//.user(user)
-//.board(board)
-//.content(replySaveRequestDto.getContent())
-//.build();
-//

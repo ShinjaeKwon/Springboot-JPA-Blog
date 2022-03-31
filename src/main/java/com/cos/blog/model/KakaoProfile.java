@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class KakaoProfile {
+
 	public Integer id;
 	public String connected_at;
 	public Properties properties;
@@ -35,4 +36,5 @@ public class KakaoProfile {
 			public Boolean is_default_image;
 		}
 	}
+
 }
