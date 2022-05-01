@@ -62,7 +62,7 @@ public class UserController {
 
 		params.add("grant_type", "authorization_code");
 		params.add("client_id", "8583161e742685cda04a453456426b39");
-		params.add("redirect_uri", "http://localhost:8080/auth/kakao/callback");
+		params.add("redirect_uri", "http://localhost:9090/auth/kakao/callback");
 		params.add("code", code);
 
 		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =

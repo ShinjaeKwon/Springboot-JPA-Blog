@@ -17,7 +17,7 @@ public class Crawling {
 		driver.get(url);
 		JavascriptExecutor js = (JavascriptExecutor)driver;
 
-		for (int i = 100; i < 1000; i += 100) {
+		for (int i = 100; i < 2000; i += 100) {
 			js.executeScript("window.scrollBy(0,+" + i + ")");
 			try {
 				Thread.sleep(500);

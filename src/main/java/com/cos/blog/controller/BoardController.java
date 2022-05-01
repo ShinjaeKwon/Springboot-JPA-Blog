@@ -44,7 +44,7 @@ public class BoardController {
 
 	@GetMapping("/search")
 	public String search(@RequestParam(value = "keyword") String keyword, Model model,
-		@PageableDefault(size = 3, sort = "id", direction = Direction.DESC) Pageable pageable) {
+		@PageableDefault(size = 10, sort = "id", direction = Direction.DESC) Pageable pageable) {
 		model.addAttribute("boards", boardService.searchPosts(keyword, pageable));
 		return "index";
 	}

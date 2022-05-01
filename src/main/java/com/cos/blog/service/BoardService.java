@@ -84,7 +84,6 @@ public class BoardService {
 
 	@Transactional(readOnly = true)
 	public Page<Board> searchPosts(String keyword, Pageable pageable) {
-		boardRepository.findByTitleContaining(keyword, pageable);
 		return boardRepository.findByTitleContaining(keyword, pageable);
 	}
 
